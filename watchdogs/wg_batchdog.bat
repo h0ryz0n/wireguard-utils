@@ -8,7 +8,7 @@ setlocal
 set wglasthandshake=0
 
 :loop
-timeout /T 60 /nobreak > nul
+timeout /T 70 /nobreak > nul
 for /f "tokens=2" %%a IN ( 
 'wg show wg0 latest-handshakes' 
 ) do ( 
@@ -19,10 +19,10 @@ goto loop
 
 :restartservice
 sc stop "WireguardTunnel$wg0" > nul
-timeout /T 1 /nobreak > nul
+timeout /T 15 /nobreak > nul
 sc start "WireguardTunnel$wg0" > nul
 ::wait for first handshake and restart
-timeout /T 10 /nobreak
+timeout /T 15 /nobreak
 
 endlocal
 goto loop
