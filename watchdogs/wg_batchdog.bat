@@ -1,6 +1,7 @@
 @echo off
 ::BATCHDOG: A WINDOWS BATCH-WATCHDOG TO FOR A WIREGUARD BOUNCE SERVER/PEER WITH DDNS
 ::restarts the windows service to update the dns entry, when needed
+::create service with delayed start: sc create WireguardBatchdog binPath="c:\bin\wg_batchdog.bat"
 setlocal
 
 :init
