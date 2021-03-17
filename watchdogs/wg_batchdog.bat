@@ -3,6 +3,9 @@
 ::restarts the windows service to update the dns entry, when needed
 setlocal
 
+:init
+set wglasthandshake=0
+
 :loop
 timeout /T 60 /nobreak > nul
 for /f "tokens=2" %%a IN ( 
