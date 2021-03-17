@@ -12,8 +12,8 @@ for /f "tokens=2" %%a IN (
 'wg show wg0 latest-handshakes' 
 ) do ( 
 if %wglasthandshake% == %%a (goto restartservice)
-else (set wglandhandshake=%%a)
 )
+set wglandhandshake=%%a
 goto loop
 
 :restartservice
