@@ -13,7 +13,7 @@ for /f "tokens=2" %%a IN (
 ) do ( 
 if %wglasthandshake% == %%a (goto restartservice)
 )
-set wglandhandshake=%%a
+set wglasthandshake=%%a
 goto loop
 
 :restartservice
