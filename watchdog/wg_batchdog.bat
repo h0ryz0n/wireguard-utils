@@ -17,6 +17,7 @@ for /f "tokens=2" %%a IN (
 'wg show wg0 transfer' 
 ) do ( 
 if %recv%==%%a (goto restartservice) else (set recv=%%a)
+)
 goto loop
 
 :restartservice
