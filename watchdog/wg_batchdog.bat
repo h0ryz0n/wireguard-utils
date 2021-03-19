@@ -12,7 +12,7 @@ set recv=%%a
 )
 
 :loop
-timeout /T 200 /nobreak > nul
+timeout /T 200 /nobreak
 for /f "tokens=2" %%a IN ( 
 'wg show wg0 transfer' 
 ) do ( 
