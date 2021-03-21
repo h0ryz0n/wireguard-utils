@@ -23,7 +23,7 @@ goto loop
 :restartservice
 net stop "WireguardTunnel$wg0"
 net start "WireguardTunnel$wg0"
-if not errorlevel 0 goto restartservice
+if errorlevel neq 0 goto restartservice
 timeout /T 5 /nobreak
 ::sc query "WireguardTunnel$wg0"
 goto loop
