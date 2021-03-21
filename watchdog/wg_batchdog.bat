@@ -1,7 +1,7 @@
 ::@echo off
 ::BATCHDOG: A WINDOWS BATCH-WATCHDOG FOR A WIREGUARD BOUNCE SERVER/PEER WITH DDNS
 ::restarts the windows service to update the dns entry, when needed
-::add to task scheduler with nt authority/system account
+::add to task scheduler with nt authority/system account (in case of error restart 999 times every 5 minutes)
 setlocal
 
 :init
