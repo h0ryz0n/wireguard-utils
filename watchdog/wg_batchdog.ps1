@@ -4,19 +4,18 @@
 #nt authority/system account, repeat every 5min+unlimited, enqueue if execution in progress
 
 $SVC = 'WireguardTunnel$wg0'
-$CMD = wg show wg0 transfer
 
 #wait for first handshake, restart if stopped for some reason
 while($recv1 -eq $null) {
     net start $SVC
     sleep(5)
-    $recv1 = ($CMD).Split()[1]
+    $recv1 = (wg show wg0 transfer).Split()[1]
     sleep(5)
 }
 #wait next handshake
 sleep(200)
 #check bytes received
-$recv2 = ($CMD).Split()[1]
+$recv2 = (wg show wg0 transfer).Split()[1]
 if($recv1 -eq $recv2) {
     #tunnel is not handshaking, restarting service
     do {
