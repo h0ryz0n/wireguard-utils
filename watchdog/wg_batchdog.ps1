@@ -7,10 +7,14 @@ $SVC = 'WireguardTunnel$wg0'
 
 #wait for first handshake, restart if stopped for some reason
 while($recv1 -eq $null) {
-    net start $SVC
-    sleep(5)
+    sc query $SVC
+    if ($LASTEXITCODE -ne 0)
+    {
+        wireguard /installtunnelservice "C:\Program Files\WireGuard\Data\Configurations\wg0.conf.dpapi"
+        sleep(8)
+    }
     $recv1 = (wg show wg0 transfer).Split()[1]
-    sleep(5)
+    sleep(2)
 }
 #wait next handshake
 sleep(200)
