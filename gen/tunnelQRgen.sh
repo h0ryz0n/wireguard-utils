@@ -22,13 +22,13 @@ CONFIGFILE="/etc/wireguard/wg0.conf"
 PEERNAME=${2}
 #IP_PEER="172.X.X.XXX"
 IP_PEER=${1}
-PORT="<port>"
-ALLOWED_IPS="WIREGUARD_SUBNET/24"
+PORT="51820"                        ## CLIENT PORT
+ALLOWED_IPS="WIREGUARD_SUBNET/24"   ## VPN SUBNET
 KEEPALIVE="120"
 PEERFILE=peer_${PEERNAME}.conf
 #server parameters
 SERVER_PUBKEY="<server public key>"
-ENDPOINT="<IP:PORT>"
+ENDPOINT="SERVERIP:51820"           ## SERVER ENDPOINT
 
 
 ##### START ######
