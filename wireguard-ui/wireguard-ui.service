@@ -1,0 +1,22 @@
+# this is a fork from tienthanh2509's script (https://github.com/tienthanh2509)
+[Unit]
+Description=wireguard-ui
+After=network-online.target
+Wants=network-online.target systemd-networkd-wait-online.service
+
+[Service]
+Restart=on-abnormal
+User=root
+Group=root
+ExecStart=/usr/local/bin/wireguard-ui -bind-address="0.0.0.0:5000"
+WorkingDirectory=/var/lib/wireguard-ui
+
+; Options
+LimitNOFILE=1048576
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+ReadWriteDirectories=/var/lib/wireguard-ui
+
+[Install]
+WantedBy=multi-user.target
