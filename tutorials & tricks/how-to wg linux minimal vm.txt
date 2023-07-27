@@ -1,12 +1,58 @@
-this is a very quick tutorial about building a minimalist vpn with a resource constraint linux vm or dedicated old machine
-minimum requirements: 1 vCore, 128 MB ram, 1 GB disk space
-with 1 tunnel and <5 clients connected, the resources in use are <1% cpu, <85 MB disk space, <85 MB ram
+## this is a very quick tutorial about building a minimalist vpn with a resource constraint linux machine or vm ##
 
-system specs:
+# minimum requirements:
+1 vCore, 128 MB ram, 1 GB disk space
+# with 1 tunnel and <5 clients connected, resources in use are
+<1% cpu, <85 MB disk space, <85 MB ram
+
+# system specs:
 alpine linux 3.18 virtual - https://www.alpinelinux.org/downloads/
 kernel  6.1.41-0-virt
 assuming eth0 and 
 
-packages needed:
+# packages needed:
 wireguard-tools
 iptables
+
+# generate node keys and chmod 600
+wg genkey > privatekey
+wg pubkey < privatekey > publickey
+
+# setup the network interface for the wg tunnel
+in /etc/network/interfaces:
+iface wg0 inet static
+        address 172.16.0.1
+        netmask 255.255.255.0
+        pre-up wg-quick up /etc/wireguard/wg0.conf
+        post-up ip route add 172.16.0.1/24 dev wg0
+        post-down ip link delete wg0
+
+
+# setup wireguard normally
+in /etc/wireguard/wg0.conf:
+[Interface]
+ListenPort = ...
+PrivateKey = ...
+
+[Peer]
+PublicKey = ...
+AllowedIPs = x.x.x.x/32
+
+[Peer]
+PublicKey = ...
+AllowedIPs = x.x.x.y/32
+  
+...
+
+
+## OPTIONAL: shall wg0 node act as a router?
+
+# enable forwarding
+in /etc/sysctl.conf
+net.ipv4.ip_forward=1
+
+
+
+
+  
+
