@@ -50,17 +50,16 @@ echo module wireguard +p > /sys/kernel/debug/dynamic_debug/control
 
 ## OPTIONAL: shall wg0 node forward traffic?
 
-# enable forwarding
+# enable forwarding, 'sysctl -p' or reboot to apply
 in /etc/sysctl.conf
 net.ipv4.ip_forward=1
-(need to reboot to apply)
 
 # add pre/post commands to wg0 tunnel to forward traffic between wg0 and another network interface
 # assuming:
 # $dst_zone as the destination interface, can be ethX, enoX.. or wg0 itself
 # $dst_zone_class an ip class belonging to $dst_zone
 
-in /etc/wireguard/wg0.conf
+in /etc/wireguard/wg0.conf:
 [Interface]
 ...
 #in case of static IPs, SNAT is faster than MASQUERADE (refer to netfilter documentation)
