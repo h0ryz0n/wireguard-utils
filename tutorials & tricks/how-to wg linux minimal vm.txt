@@ -14,7 +14,7 @@ assuming eth0 and
 wireguard-tools
 iptables
 
-# generate node keys and chmod 600
+# generate node keys and set chmod 600
 wg genkey > privatekey
 wg pubkey < privatekey > publickey
 
@@ -36,23 +36,39 @@ PrivateKey = ...
 
 [Peer]
 PublicKey = ...
-AllowedIPs = x.x.x.x/32
+AllowedIPs = 172.16.0.11/32
 
 [Peer]
-PublicKey = ...
-AllowedIPs = x.x.x.y/32
+PublicKey = zzzzzz
+AllowedIPs = 172.16.0.12/32
   
 ...
 
+# wireguard debug on dmesg (removes at every reboot)
+echo module wireguard +p > /sys/kernel/debug/dynamic_debug/control
 
-## OPTIONAL: shall wg0 node act as a router?
+
+## OPTIONAL: shall wg0 node forward traffic?
 
 # enable forwarding
 in /etc/sysctl.conf
 net.ipv4.ip_forward=1
+(need to reboot to apply)
 
+# add pre/post commands to wg0 tunnel to forward traffic between wg0 and another network interface
+# assuming:
+# $dst_zone as the destination interface, can be ethX, enoX.. or wg0 itself
+# $dst_zone_class an ip class belonging to $dst_zone
 
+in /etc/wireguard/wg0.conf
+[Interface]
+...
+#in case of static IPs, SNAT is faster than MASQUERADE (refer to netfilter documentation)
+PreUp = iptables -t nat -A POSTROUTING -s 172.16.0.0/24 -d $dst_zone_class -o $dst_zone -j SNAT --to-source 172.16.0.1
+#following are needed if you have a DROP default policy of FORWARD chain
+PreUp = iptables -A FORWARD -i wg0 -o $dst_zone -j ACCEPT
+PreUp = iptables -A FORWARD -i $dst_zone -o wg0 -m state --state RELATED,ESTABLISHED -j ACCEPT
 
-
-  
-
+# quick hardening:
+put a more restricting FORWARD and POSTROUTING criteria
+put DROP policy as INPUT and restricting ingress traffic on wg interface
