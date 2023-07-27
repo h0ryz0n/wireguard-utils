@@ -1,1 +1,4 @@
-
+#1
+Wireguard interface not always starting on boot:
+possible cause: service starting before network connection
+services.msc -> Wireguard manager -> set Automatic (delayed) start
