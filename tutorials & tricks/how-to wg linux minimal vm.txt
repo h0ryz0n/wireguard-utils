@@ -1,0 +1,12 @@
+this is a very quick tutorial about building a minimalist vpn with a resource constraint linux vm or dedicated old machine
+minimum requirements: 1 vCore, 128 MB ram, 1 GB disk space
+with 1 tunnel and <5 clients connected, the resources in use are <1% cpu, <85 MB disk space, <85 MB ram
+
+system specs:
+alpine linux 3.18 virtual - https://www.alpinelinux.org/downloads/
+kernel  6.1.41-0-virt
+assuming eth0 and 
+
+packages needed:
+wireguard-tools
+iptables
