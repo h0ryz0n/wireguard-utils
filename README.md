@@ -7,7 +7,10 @@ android utils:
 https://f-droid.org/it/packages/com.zaneschepke.wireguardautotunnel/  
 https://f-droid.org/it/packages/de.marionoll.wgautoconnect/  
   
-also, TailScale is a valid wireguard-based cloud alternative:  
+also, TailScale is a valid wireguard-based cloud alternative, which has some closed-source components:  
 https://tailscale.com/  
 https://github.com/tailscale/tailscale  
 https://f-droid.org/it/packages/com.tailscale.ipn/  
+
+headscale is a pure floss implementation of tailscale:
+https://github.com/juanfont/headscale  
