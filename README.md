@@ -1,4 +1,4 @@
-WireGuard is a low-overhead lightweight VPN solution which is basically a mesh p2p solution, but can be configured with a central peer which routes traffic to peers (or road-warriors)  
+WireGuard is a low-overhead lightweight VPN solution which is basically a mesh p2p solution, but can be configured with a central peer which routes traffic to other peers (or road-warriors)  
 here you can find some wireguard tricks & infos to make your life easier
 
 official site:  
